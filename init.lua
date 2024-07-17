@@ -14,4 +14,4 @@ require("traap.config.options")
 require("traap.config.autocmds")
 require("traap.config.keymaps")
 
-require("traap.core.functions.clipboard")
+-- require("traap.core.functions.clipboard")

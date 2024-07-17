@@ -9,6 +9,7 @@ return {
     "nvim-telescope/telescope.nvim",
   },
 
+
   -- ----------------------------------------------------------------------- }}}
   -- {{{ Define events to load Harpoon.
 
@@ -31,24 +32,23 @@ return {
       }):find()
     end
 
-
     return {
       -- Harpoon marked files 1 through 4
-      {"<a-1>", function() harpoon:list():select(1) end, desc ="Harpoon buffer 1"},
-      {"<a-2>", function() harpoon:list():select(2) end, desc ="Harpoon buffer 2"},
-      {"<a-3>", function() harpoon:list():select(3) end, desc ="Harpoon buffer 3"},
-      {"<a-4>", function() harpoon:list():select(4) end, desc ="Harpoon buffer 4"},
+      {"<C-t>", function() harpoon:list():select(2) end, desc ="Harpoon buffer 2"},
+      {"<C-h>", function() harpoon:list():select(1) end, desc ="Harpoon buffer 1"},
+      {"<C-n>", function() harpoon:list():select(3) end, desc ="Harpoon buffer 3"},
+      {"<C-s>", function() harpoon:list():select(4) end, desc ="Harpoon buffer 4"},
 
       -- Harpoon next and previous.
-      {"<a-5>", function() harpoon:list():next() end, desc ="Harpoon next buffer"},
-      {"<a-6>", function() harpoon:list():prev() end, desc ="Harpoon prev buffer"},
+      {"<C-S-N>", function() harpoon:list():next() end, desc ="Harpoon next buffer"},
+      {"<C-S-P>", function() harpoon:list():prev() end, desc ="Harpoon prev buffer"},
 
       -- Harpoon user interface.
       {"<a-7>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc ="Harpoon Toggle Menu"},
       {"<a-8>", function() harpoon:list():add() end, desc ="Harpoon add file"},
 
       -- Use Telescope as Harpoon user interface.
-      {"<a-9>", function() toggle_telescope(harpoon:list() )end, desc ="Open Harpoon window"},
+      {"<leader-h>", function() toggle_telescope(harpoon:list() )end, desc ="Open Harpoon window"},
     }
   end,
 

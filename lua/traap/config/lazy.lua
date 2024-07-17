@@ -7,6 +7,26 @@ require("lazy").setup({
       opts = require("traap.config.lazyvim").opts
     },
 
+<<<<<<< Updated upstream
+=======
+    -- lazyvim plugins i use.
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.dap.core" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.clangd" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.go" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.json" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.ruby" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.rust" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.tailwind" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.typescript" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.ansible" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.java" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.helm" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.docker" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.markdown" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.terraform" },
+    { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.lang.yaml" },
+
+>>>>>>> Stashed changes
     -- Now tell lazy.nvim about my customizations.
     { import = "traap.plugins",
       opts = require("traap.config.lazyvim").opts
@@ -29,6 +49,16 @@ require("lazy").setup({
     keymaps = false,
   },
 
+<<<<<<< Updated upstream
+=======
+  checker = { enabled = false, concurrency = 2 },
+
+  change_detection = {
+    enable = false,
+    notify = false,
+  },
+
+>>>>>>> Stashed changes
   install = {
     missing = true,
     colorscheme = { "tokyonight", "darkplus", "default" }
