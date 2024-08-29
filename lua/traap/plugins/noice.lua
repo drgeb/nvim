@@ -7,7 +7,6 @@ return {
     {"<leader>ne", "<cmd>NoiceErrors<cr>"},
     {"<leader>nh", "<cmd>NoiceHistory<cr>"}
   },
-<<<<<<< Updated upstream
 
   opts = function(_, opts)
     -- {{{ Cmdline
@@ -229,7 +228,7 @@ return {
 
     -- --------------------------------------------------------------------- }}}
   end,
-=======
+
   dependencies = {
     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
     "MunifTanjim/nui.nvim",
@@ -238,5 +237,5 @@ return {
     --   If not available, we use `mini` as the fallback
     "rcarriga/nvim-notify",
   },
->>>>>>> Stashed changes
+
 }
