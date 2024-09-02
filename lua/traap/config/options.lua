@@ -73,5 +73,18 @@ vim.g.bullets_enabled_file_types = {
   "text",
   "wiki",
 }
+-- AddShebang
+vim.api.nvim_create_augroup("AddShebang", { clear = true })
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = "AddShebang",
+  pattern = "*.sh",
+  callback = function()
+    local first_line = vim.fn.getline(1)
+    if not first_line:match("^#!") then
+      vim.fn.setline(1, "#!/bin/bash")
+      vim.api.nvim_command('normal! G')
+    end
+  end,
+})
 
 -- ------------------------------------------------------------------------- }}}
