@@ -28,8 +28,6 @@ require("lazy").setup({
 
   build = { warn_on_override = true, },
 
-  checker = { enabled = false },
-
   change_detection = {
     enable = false,
     notify = false,
@@ -43,11 +41,6 @@ require("lazy").setup({
   },
 
   checker = { enabled = false, concurrency = 2 },
-
-  change_detection = {
-    enable = false,
-    notify = false,
-  },
 
   install = {
     missing = true,
