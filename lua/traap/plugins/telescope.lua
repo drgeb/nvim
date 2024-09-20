@@ -7,6 +7,7 @@ return {
 
   dependencies = {
     "nvim-lua/plenary.nvim",
+    "xiyaowong/telescope-emoji"
   },
 
   -- {{{ keymaps
