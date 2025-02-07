@@ -1,7 +1,9 @@
 return {
   "nvimdev/dashboard-nvim",
-  event = "VimEnter",
   enabled = true,
+  lazy = false,
+  priority = 998,
+
 
   keys = {
     {"<leader>aa", "<cmd>Dashboard<cr>", desc = "Dashboard display"}
@@ -9,7 +11,7 @@ return {
 
   opts = function()
     local logo = [[Configured by Traap and powered by lazy.nvim.]]
-    local icons = require("traap.core.icons")
+    local icons = require("traap.config.icons")
 
     logo = string.rep("\n", 4) .. logo .. "\n\n"
 
@@ -17,27 +19,27 @@ return {
       theme = "doom",
       hide = {
         -- Lualine controls status line.
-        statusline = false,
+        statusline = true,
       },
 
       config = {
         header = vim.split(logo, "\n"),
         -- stylua: ignore
         center = {
-          {key = "c", icon = icons.ui.Gear,      desc = " Config",      action = [[lua LazyVim.pick.config_files()()]] },
-          {key = "f", icon = icons.ui.FindFile,  desc = " Find file",   action = [[lua LazyVim.pick()()]]},
-          {key = "g", icon = icons.ui.FindText,  desc = " Find text",   action = [[lua LazyVim.pick("live_grep")()]]},
+          -- {key = "c", icon = icons.ui.Gear,      desc = " Config",      action = [[lua LazyVim.pick.config_files()()]] },
+          -- {key = "f", icon = icons.ui.FindFile,  desc = " Find file",   action = [[lua LazyVim.pick()()]]},
+          -- {key = "g", icon = icons.ui.FindText,  desc = " Find text",   action = [[lua LazyVim.pick("live_grep")()]]},
           {key = "h", icon = icons.ui.Check,     desc = " Check Health",action = "checkhealth" },
-          {key = "l", icon = icons.ui.Event,     desc = " Lazy",        action = "Lazy" },
-          {key = "m", icon = icons.ui.Mason,     desc = " Mason",       action = "Mason" },
-          {key = "n", icon = icons.ui.NewFile,   desc = " New file",    action = "ene | startinsert" },
-          {key = "q", icon = icons.ui.Quit,      desc = " Quit",        action = "qa" },
-          {key = "r", icon = icons.ui.Files,     desc = " Recent files",action = [[lua LazyVim.pick("oldfiles")()]]},
-          {key = "x", icon = icons.ui.Event,     desc = " LazyExtras",  action = "LazyExtras" },
+          {key = "l", icon = icons.ui.Event,     desc = "Lazy",         action = "Lazy" },
+          {key = "m", icon = icons.ui.Mason,     desc = "Mason",       action = "Mason" },
+          {key = "n", icon = icons.ui.NewFile,   desc = "New file",    action = "ene | startinsert" },
+          {key = "q", icon = icons.ui.Quit,      desc = "Quit",        action = "qa" },
+          -- {key = "r", icon = icons.ui.Files,     desc = " Recent files",action = [[lua LazyVim.pick("oldfiles")()]]},
+          -- {key = "x", icon = icons.ui.Event,     desc = " LazyExtras",  action = "LazyExtras" },
         },
 
         footer = function()
-          local ui =  require("traap.core.icons").ui
+          local ui =  require("traap.config.icons").ui
           local stats = require("lazy").stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
           return {ui.Lazy .. "Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }

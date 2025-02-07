@@ -1,7 +1,21 @@
 -- {{{ Create autogroup.
-local function augroup(name)
-  return vim.api.nvim_create_augroup("traap_" .. name, { clear = true })
+
+local function is_lazyvim_loaded()
+  if pcall(require, "lazyvim") then
+    return true
+  else
+    return false
+  end
 end
+
+local function augroup(name)
+  local agName = "traap_"
+  if is_lazyvim_loaded() then
+    agName = "lazyvim_"
+  end
+  return vim.api.nvim_create_augroup(agName .. name, { clear = true })
+end
+
 
 -- -------------------------------------------------------------------------- }}}
 -- {{{ Automagically close command-line window.
@@ -109,6 +123,7 @@ vim.api.nvim_create_autocmd({"BufWinEnter", "ColorScheme" }, {
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
+    "Gru FAR",
     "PlenaryTestPopup",
     "checkhealth",
     "fugitive",
@@ -248,6 +263,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     vim.highlight.on_yank()
   end,
 })
+
 -- ------------------------------------------------------------------------- }}}
 -- {{{ json syntax match
 
@@ -264,10 +280,10 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   group = augroup("lspinfo_border"),
   pattern = {
     "lspinfo",
-    "mason",
   },
   callback = function()
     require("lspconfig.ui.windows").default_options.border = "rounded"
+    vim.opt_local.bufhiddden = "wipe"
   end,
 })
 
@@ -356,6 +372,17 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.cmd.wincmd("L")
 		vim.cmd.wincmd("=")
 	end,
+})
+
+-- ------------------------------------------------------------------------- }}}
+-- {{{ Set SQL comment string
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group = augroup("sql"),
+  pattern = "sql",
+  callback = function()
+    vim.cmd([[setlocal commentstring=--%s]])
+  end,
 })
 
 -- ------------------------------------------------------------------------- }}}

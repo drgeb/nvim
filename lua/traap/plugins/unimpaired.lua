@@ -1,5 +1,5 @@
 return {
   "tpope/vim-unimpaired",
-  event = { "BufReadPost", "BufNewFile" },
+  event = require("traap.config.events").file,
   enabled = true,
 }

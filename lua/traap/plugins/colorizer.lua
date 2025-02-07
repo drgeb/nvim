@@ -6,7 +6,7 @@
 --
 return {
   "NvChad/nvim-colorizer.lua",
-  event = { "BufReadPre", "BufNewFile" },
+  event = require("traap.config.events").file,
   enabled = true,
   config = true,
 }

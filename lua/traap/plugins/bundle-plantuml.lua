@@ -1,6 +1,6 @@
 return {
   "Traap/vim-bundle-plantuml",
-  event = {"BufReadPost", "BufNewFile"},
+  event = require("traap.config.events").file,
   enabled = true,
 
   keys = {

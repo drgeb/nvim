@@ -1,6 +1,6 @@
 return {
   "windwp/nvim-autopairs",
-  event = { "BufReadPost", "BufNewFile" },
+  event = require("traap.config.events").file,
   enabled = true,
   opts = {
     check_ts = true,

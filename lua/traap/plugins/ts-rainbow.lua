@@ -1,7 +1,7 @@
 return {
   "mrjones2014/nvim-ts-rainbow" ,
   enabled = true,
-  event = { "BufReadPost", "BufNewFile" },
+  event = require("traap.config.events").file,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },

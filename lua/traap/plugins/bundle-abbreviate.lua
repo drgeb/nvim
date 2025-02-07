@@ -1,5 +1,5 @@
 return {
   "Traap/vim-bundle-abbreviate",
-  event = "InsertEnter",
+  event = require("traap.config.events").file,
   enabled = true,
 }

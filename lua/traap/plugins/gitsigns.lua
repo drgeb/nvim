@@ -1,6 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = { "BufReadPost", "BufNewFile" },
+  event = require("traap.config.events").file,
   enabled = true,
 
   opts = function(_, opts)

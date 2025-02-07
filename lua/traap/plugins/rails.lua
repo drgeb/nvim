@@ -1,5 +1,5 @@
 return {
   "tpope/vim-rails",
-  event = { "BufEnter *.rb" },
+  event = require("traap.config.events").file,
   enabled = true,
 }

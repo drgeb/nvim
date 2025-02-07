@@ -1,9 +1,15 @@
 return {
   "folke/noice.nvim",
-  event = "VeryLazy",
   enabled = true,
+  lazy = false,
+  -- event = "VeryLazy",
+
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
 
   keys = {
+    {"<leader>na", "<cmd>NoiceAll<cr>"},
     {"<leader>ne", "<cmd>NoiceErrors<cr>"},
     {"<leader>nh", "<cmd>NoiceHistory<cr>"}
   },
@@ -27,7 +33,7 @@ return {
         search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
         filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
         lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
-        help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+        help = { pattern = "^:%s*he?l?p?%s+", icon = "󰋖" },
         input = {},
       },
     }
@@ -118,9 +124,9 @@ return {
 
     opts.messages  = {
       enabled = true,
-      view = "mini",
-      view_error = "mini",
-      view_warn = "mini",
+      view = "notify",
+      view_error = "notify",
+      view_warn = "notify",
       view_history = "messages",
       view_search = "virtualtext",
     }
@@ -129,7 +135,7 @@ return {
     -- {{{ Notify
 
     opts.notify = {
-      enabled = false,
+      enabled = true,
       view = "notify"
     }
 
@@ -157,7 +163,7 @@ return {
     -- {{{ Redirect
 
     opts.redirect  = {
-      view = "mini",
+      view = "notify",
       filter = { event = "msg_show" },
     }
 
@@ -169,6 +175,7 @@ return {
         filter = {
           event = "msg_show",
           any = {
+            { find = "E85: There is no listed buffer" },
             { find = "E486: Pattern not found: ?$" },
             { find = "E490: No fold found" },
             { find = "Already at oldest change" },
@@ -191,6 +198,7 @@ return {
           event = "msg_show",
           any = {
             { find = "%d+L, %d+B" },
+            { find = "[nvim-treesitter]*$" },
           },
         },
         view = "mini",
@@ -203,7 +211,7 @@ return {
 
     opts.smart_move = {
       enable = true,
-      excluded_filetypes = { "cmp_menu", "cmp_docs", "notify" },
+      excluded_filetypes = { "cmp_menu", "cmp_docs", "mini" },
     }
     -- --------------------------------------------------------------------- }}}
     -- {{{ Views

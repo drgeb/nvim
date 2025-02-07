@@ -48,7 +48,7 @@ local options = {
   termguicolors = true,
   textwidth = 80,
   timeout = true,
-  timeoutlen = 200,
+  timeoutlen = 270,
   ttimeout = true,
   ttimeoutlen = 5,
   updatetime = 500,
@@ -66,6 +66,7 @@ vim.opt.formatoptions:remove("o")
 vim.cmd[[set termguicolors]]
 vim.cmd([[filetype plugin indent on]])
 
+vim.g.have_nerd_font = true
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Bullets

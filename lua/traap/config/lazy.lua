@@ -3,9 +3,10 @@
 require("lazy").setup({
   spec = {
 
-    { "LazyVim/LazyVim", import = "lazyvim.plugins",
-       opts = require("traap.config.lazyvim").opts
-    },
+    -- -- LazyVim plugins.
+    -- { "LazyVim/LazyVim", import = "lazyvim.plugins",
+    --   opts = require("traap.config.lazyvim").opts
+    -- },
 
     -- lazyvim plugins i use.
     -- { "lazyvim/lazyvim", import = "lazyvim.plugins.extras.dap.core" },

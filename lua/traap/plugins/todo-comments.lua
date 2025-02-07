@@ -3,10 +3,10 @@ local keywords = 'YouTube,Youtube,URL,Url'
 return {
   "folke/todo-comments.nvim",
   enabled = true,
-  event = {"BufReadPost", "BufNewFile"},
+  event = require("traap.config.events").file,
 
   keys = {
-    {"<leader>fy", "<cmd>TodoTelescope keywords="..keywords.."<cr>"},
+    {"<leader>fy", "<cmd>Find Todo keywords="..keywords.."<cr>"},
   },
 
   opts = function(_, opts)

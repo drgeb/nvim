@@ -1,51 +1,54 @@
--- {{{ Global definitions
+-- {{{ local keymap function
 
-require("traap.core.globals")
+-- keymaps are silent and noremap by default
+local function keymap(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  opts.noremap = opts.noremap ~= false
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Disable LazyVim keybindsings
 
 -- Delete the current line.
-Keymap("n", "<A-j>", "")
-Keymap("i", "<A-j>", "")
-Keymap("v", "<A-j>", "")
+keymap("n", "<A-j>", "")
+keymap("i", "<A-j>", "")
+keymap("v", "<A-j>", "")
 
-Keymap("n", "<A-k>", "")
-Keymap("i", "<A-k>", "")
-Keymap("v", "<A-k>", "")
+keymap("n", "<A-k>", "")
+keymap("i", "<A-k>", "")
+keymap("v", "<A-k>", "")
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ General mappings.
 
 -- Delete the current line.
-Keymap("n", "-", "dd")
+keymap("n", "-", "dd", {desc = "Delete line"})
 
 -- Select (charwise) the contents of the current line, excluding indentation.
-Keymap("n", "vv", "^vg_")
+keymap("n", "vv", "^vg_", {desc = "Charwise line select" })
 
 -- Select entire buffer
-Keymap("n", "vaa", "ggvGg_")
-Keymap("n", "Vaa", "ggVG")
-Keymap("n", "<leader>V", "V`]")
+keymap("n", "vaa", "ggvGg_", {desc = "Select buffer char mode"})
+keymap("n", "Vaa", "ggVG", {desc = "Select buffer line mode "})
+
 
 -- Save all files.
-Keymap("n", "<F2>", "<cmd>wall<cr>")
+keymap("n", "<F2>", "<cmd>wall<cr>", {desc="Save all files"})
 
 -- Toggle [in]visible characters.
-Keymap("n", "<leader>i", "<cmd>set list!<cr>")
+keymap("n", "<leader>i", "<cmd>set list!<cr>", {desc="Toggle invisible chars"})
 
 -- Stay in indent mode.
-Keymap("v", "<", "<gv")
-Keymap("v", ">", ">gv")
-
--- Visual yank
-Keymap("v", "<leader>cc", '"+y')
+keymap("v", "<", "<gv", {desc="Visual Outdent"})
+keymap("v", ">", ">gv", {desc="Visual Indent"})
 
 -- Obfuscate
-Keymap("n", "<f3>", "mmggg?G`m")
+keymap("n", "<f3>", "mmggg?G`m", {desc="Obfuscate toogle"})
 
 -- <leader>x conflicts with LazyVim
-Keymap("n", "<leader>X", "<Plug>(bullets-toggle-checkbox)")
+keymap("n", "<leader>X", "<Plug>(bullets-toggle-checkbox)", {desc="Checkbox toggle"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Folding commands.
@@ -54,118 +57,136 @@ Keymap("n", "<leader>X", "<Plug>(bullets-toggle-checkbox)")
 --    See: https://github.com/lervag/dotnvim
 
 -- Close all fold except the current one.
-Keymap("n", "zv", "zMzvzz")
+keymap("n", "zv", "zMzvzz", {desc='Close all folds except current'})
 
 -- Close current fold when open. Always open next fold.
-Keymap("n", "zj", "zcjzOzz")
+keymap("n", "zj", "zcjzOzz", {desc='Close fold & open next one'})
 
 -- Close current fold when open. Always open previous fold.
-Keymap("n", "zk", "zckzOzz")
+keymap("n", "zk", "zckzOzz", {desc='Close fold & open previous one'})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Keep the cursor in place while joining lines.
 
-Keymap("n", "J", "mzJ`z")
-Keymap("n", "<leader>J", "myvipJ`ygq<cr>")
+keymap("n", "J", "mzJ`z", {desc="Join lines"})
+keymap("n", "<leader>J", "myvipJ`ygq<cr>", {desc="Join Paragraph"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Shell commands.
 
 -- Execute the current line of text as a shell command.
-Keymap("n", "<localleader>E", [[0mMvg_"ky :exec "r!" getreg("k")<cr>]])
-Keymap("v", "<localleader>E", [["ky :exec "r!" getreg("k")<cr>]])
+keymap("n", "<localleader>E",
+  [[0mMvg_"ky :exec "r!" getreg("k")<cr>]], {desc="Execute current line"}
+)
+
+keymap("v", "<localleader>E",
+  [["ky :exec "r!" getreg("k")<cr>]], {desc="Execute current selection"}
+)
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ Q/q - Quit
 
 -- Quit all and Save All
-Keymap("n", "<leader>qq", "<cmd>qall!<cr>")
-Keymap("n", "<c-s>", "<cmd>wall!<cr>")
+keymap("n", "<leader>q", "<cmd>qall!<cr>", {desc="Quit all!"})
+keymap("n", "<leader>wq", "<cmd>wall!<cr>", {desc="Write quit all!" })
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ leader + space
 
-Keymap("n", "<leader><space>", "<cmd>nohlsearch<cr>")
+keymap("n", "<leader><space>", "<cmd>nohlsearch<cr>", {desc="Clear highghted"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ H - Help
 
-Keymap("n", "<leader>HH", "<cmd>silent vert bo help<cr>")
+keymap("n", "<leader>HH", "<cmd>silent vert bo help<cr>", {desc="Vertical help"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ V - Linewise reselection of what you just pasted.
 
-Keymap("n", "<leader>VV", "V`]")
+keymap("n", "<leader>VV", "V`]", {desc="Linewise reslection of last paste"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ b - Buffer adjustments.
 
-Keymap("n", "<leader>bh", "<cmd>vertical resize -1<cr>")
-Keymap("n", "<leader>bj", "<cmd>resize +1<cr>")
-Keymap("n", "<leader>bk", "<cmd>resize -1<cr>")
-Keymap("n", "<leader>bl", "<cmd>vertical resize +1<cr>")
-Keymap("n", "<leader>bx", [[<cmd>luafile %<cr><cmd>echo "Sourced " . @%<cr>]])
+keymap("n", "<leader>bh",
+  "<cmd>vertical resize -1<cr>",
+  {desc='Vertical resize -1'}
+)
+
+keymap("n", "<leader>bj",
+  "<cmd>resize +1<cr>",
+  {desc='Horizontal resize +1'}
+)
+
+keymap("n", "<leader>bk",
+  "<cmd>resize -1<cr>",
+  {desc='Horizontal resize -1'}
+)
+
+keymap("n", "<leader>bl",
+  "<cmd>vertical resize +1<cr>",
+  {desc='Vertical resize +1'}
+)
+
+keymap("n", "<leader>bx",
+  [[<cmd>luafile %<cr><cmd>echo "Sourced " . @%<cr>]],
+  {desc="Source current file."}
+)
 
 -- ------------------------------------------------------------------------- }}}
--- {{{ c - Copy & Paste
+-- {{{ c - Yank buffer
 
-Keymap("n", "<leader>yb", 'ggVGg_"+y')
+keymap("n", "<leader>yb", 'ggVGg_"+y', {desc="Select buffer char mode"})
+
+keymap('x', 'cb',
+  [[:lua require("traap.core.comment_block").surround()<cr>]],
+  { desc = 'Surround selction with comment block.'}
+)
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ g - KJV commands
 
-vim.api.nvim_set_keymap('x', 'gk',
-  [[:lua require("traap.core.functions.KJV").insert_verse_from_visual_selection()<cr>]],
-  { noremap = true, silent = true, desc = "Insert verse from visual selection" }
+keymap('x', 'gk',
+  [[:lua require("traap.core.KJV").insert_verse_from_visual_selection()<cr>]],
+  { desc = "Insert verse from visual selection" }
 )
 
-vim.api.nvim_set_keymap('n', 'gk',
-  [[:lua require("traap.core.functions.KJV").insert_verse_from_line()<cr>]],
-  { noremap = true, silent = true, desc = "Insert verse from line" }
+keymap('n', 'gk',
+  [[:lua require("traap.core.KJV").insert_verse_from_line()<cr>]],
+  { desc = "Insert verse from line" }
 )
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ o - Options
 
-Keymap("n", "<leader>oh", "<cmd>checkhealth<cr>")
-Keymap("n", "<leader>oo", "<cmd>only<cr>")
-
--- ------------------------------------------------------------------------- }}}
--- {{{ p - Package manager
-
-Keymap("n", "<leader>ph", "<cmd>Lazy home<cr>")
-Keymap("n", "<leader>pl", "<cmd>Lazy log<cr>")
-Keymap("n", "<leader>pp", "<cmd>Lazy profile<cr>")
-Keymap("n", "<leader>ps", "<cmd>Lazy sync<cr>")
-Keymap("n", "<leader>pu", "<cmd>Lazy update<cr>")
+keymap("n", "<leader>oh", "<cmd>checkhealth<cr>", {desc="Checkhealth"})
+keymap("n", "<leader>oo", "<cmd>only<cr>", {desc="Only current buffer"})
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ s - Split & Sorts
 
-Keymap("n", "<leader>sh", "<cmd>split<cr>")
-Keymap("n", "<leader>sv", "<cmd>vsplit<cr>")
-Keymap("n", "<leader>ss", "0v)k$:sort<cr>")
+keymap("n", "<leader>sj", "<cmd>split<cr>", {desc="Split horizontal"})
+keymap("n", "<leader>sl", "<cmd>vsplit<cr>", {desc="Split vertical"})
+keymap("n", "<leader>ss", "0v)k$:sort<cr>", {desc="Sort acronym list"})
+keymap("n", "<leader>sr", "<cmd>GrugFar<cr>", {desc="Scan and Replace"})
+
 
 -- ------------------------------------------------------------------------- }}}
 -- {{{ w - Whitespace
 
--- Remove Windoz line ending.
-Keymap("n", "<leader>wr", [[mz<cmd>%s/\r//g<cr><cmd>let @/=''<cr>`z]])
+keymap("n", "<leader>wr", [[mz<cmd>%s/\r//g<cr><cmd>let @/=''<cr>`z]],
+  {desc="Remove Windoz line ending"})
 
--- Convert tab to 2 spaces.
-Keymap("n", "<leader>wt", [[mz<cmd>%s/\t/  /g<cr><cmd>let @/=''<cr>`z]])
+keymap("n", "<leader>wt", [[mz<cmd>%s/\t/  /g<cr><cmd>let @/=''<cr>`z]],
+  {desc="Convert tab to 2 spaces"})
 
--- Remove line end trailing white space.
-Keymap("n", "<leader>ww", [[mz<cmd>%s//\\s\\+$////<cr><cmd>let @/=''<cr>`z]])
+keymap("n", "<leader>ww", [[mz<cmd>%s//\\s\\+$////<cr><cmd>let @/=''<cr>`z]],
+  {desc="Remove line end and trailing white spaces"})
 
--- TODO: keymap below depends upon a https://github.com/willothy/wezterm.nvim
--- Move this to wezterm.configuation
--- vim.keymap.set("n", "<leader>tt", require('wezterm').switch_tab.index)
 
--- Delete empty lines.
 vim.api.nvim_set_keymap(
   "n", "<leader>wl", "<cmd>g/^\\s*$/d<CR>",
-  { noremap = true, silent = true }
+  { desc="Delete empty lines"}
 )
 
 -- ------------------------------------------------------------------------- }}}
